@@ -7,6 +7,7 @@ st.write("This report contains visualizations of various attribute distributions
 uploaded_file = st.file_uploader(label = 'Drop the .csv file scraped from Flickr here:', type = 'csv')
 
 if uploaded_file is not None:
+    st.write('Data Uploaded Successfully')
     if st.button(label = 'Download Report'):
         st.write('clicked')
 

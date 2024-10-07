@@ -41,12 +41,14 @@ def make_report(uploaded_file):
 
     date_counts = df['Date_taken'].dt.to_period('M').value_counts().sort_index()
 
-    st.pyplot(plt.figure(figsize=(10, 6)))
+    plt.figure(figsize=(10, 6))
     date_counts.plot(kind='line', color='green')
     plt.title('Photos Taken Over Time')
     plt.xlabel('Date')
     plt.ylabel('Number of Photos')
     plt.show()
+    st.pyplot(plt)
+
 
     st.subheader("Description")
 

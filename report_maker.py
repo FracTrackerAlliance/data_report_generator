@@ -9,6 +9,7 @@ def make_report(uploaded_file):
     st.subheader("Attribute Overview")
     shape = df.shape
     st.markdown("This data set has " + str(shape[0]) + " photos and " + str(shape[1]) + " attributes per photo.")
+    st.markdown("The attributes in this data set are " + str(list(df.columns)))
     st.markdown(
     """
     Here is a brief description of each of the attributes:
@@ -28,3 +29,33 @@ def make_report(uploaded_file):
     """
     )
     
+    st.subheader("`PhotoID`")
+    st.markdown('There are ' + str(len(df.PhotoID.unique())) + ' unique PhotoIDs in this data set.')
+    st.markdown('There are' + str(len(df[df.duplicated(subset = ['PhotoID']) == True])) + ' repeat PhotoIDs in this data set.')
+
+    st.subheader("`AlbumID` and `AlbumTitle`")
+
+    st.subheader("`Date_taken`")
+    # Convert 'Date_taken' to datetime for time series plotting
+    df['Date_taken'] = pd.to_datetime(df['Date_taken'])
+
+    date_counts = df['Date_taken'].dt.to_period('M').value_counts().sort_index()
+
+    plt.figure(figsize=(10, 6))
+    date_counts.plot(kind='line', color='green')
+    plt.title('Photos Taken Over Time')
+    plt.xlabel('Date')
+    plt.ylabel('Number of Photos')
+    plt.show()
+
+    st.subheader("Description")
+
+    st.subheader("Latitude and Longitude")
+
+    st.subheader("Title")
+
+    st.subheader("Mission")
+
+    st.subheader("Mission Description")
+
+    st.subheader("st_count")

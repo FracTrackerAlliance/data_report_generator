@@ -31,7 +31,7 @@ def make_report(uploaded_file):
     
     st.subheader("`PhotoID`")
     st.markdown('There are ' + str(len(df.PhotoID.unique())) + ' unique PhotoIDs in this data set.')
-    st.markdown('There are' + str(len(df[df.duplicated(subset = ['PhotoID']) == True])) + ' repeat PhotoIDs in this data set.')
+    st.markdown('There are ' + str(len(df[df.duplicated(subset = ['PhotoID']) == True])) + ' repeat PhotoIDs in this data set.')
 
     st.subheader("`AlbumID` and `AlbumTitle`")
 
@@ -41,7 +41,7 @@ def make_report(uploaded_file):
 
     date_counts = df['Date_taken'].dt.to_period('M').value_counts().sort_index()
 
-    plt.figure(figsize=(10, 6))
+    st.pyplot(plt.figure(figsize=(10, 6)))
     date_counts.plot(kind='line', color='green')
     plt.title('Photos Taken Over Time')
     plt.xlabel('Date')

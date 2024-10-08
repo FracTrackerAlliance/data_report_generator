@@ -34,6 +34,52 @@ def make_report(uploaded_file):
     st.markdown('There are ' + str(len(df[df.duplicated(subset = ['PhotoID']) == True])) + ' repeat PhotoIDs in this data set.')
 
     st.subheader("`AlbumID` and `AlbumTitle`")
+    df['AlbumID'] = df['AlbumID'].apply(lambda x: x.replace('[', ''))
+    df['AlbumTitle'] = df['AlbumTitle'].apply(lambda x: x.replace('[', ''))
+    df['AlbumID'] = df['AlbumID'].apply(lambda x: x.replace(']', ''))
+    df['AlbumTitle'] = df['AlbumTitle'].apply(lambda x: x.replace(']', ''))
+    df['AlbumTitle'] = df['AlbumTitle'].apply(lambda x: x.replace('\', ', '|'))
+    df['AlbumTitle'] = df['AlbumTitle'].apply(lambda x: x.replace('\'', ''))
+    alb_df = pd.DataFrame()
+    count = 0
+    for lis in df.AlbumTitle.apply(lambda x: x.split('|')):
+        for item in lis:
+            alb_df.loc[count, 'Album'] = item
+            count+=1
+    albs = alb_df.value_counts()
+    plt.figure(figsize=(15, 6))
+    bars = albs.plot(kind='bar', color='pink')
+    # Add counts on top of each bar
+    for bar in bars.patches:
+        bars.annotate(f'{int(bar.get_height())}', 
+                    (bar.get_x() + bar.get_width() / 2, bar.get_height()), 
+                    ha='center', va='bottom', fontsize=10)
+    plt.title('Distribution of Photos across Albums (including repeats in multiple albums)')
+    plt.xlabel('Album Titles')
+    plt.ylabel('Number of Photos')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
+    st.pyplot(plt)
+    num_albums_per_pic = df.AlbumID.apply(lambda x: x.count(',')+1)
+    alb_counts = num_albums_per_pic.value_counts().sort_index()
+
+    plt.figure(figsize=(10, 6))
+    bars = alb_counts.plot(kind='bar', color='pink')
+
+    # Add counts on top of each bar
+    for bar in bars.patches:
+        bars.annotate(f'{int(bar.get_height())}', 
+                    (bar.get_x() + bar.get_width() / 2, bar.get_height()), 
+                    ha='center', va='bottom', fontsize=10)
+
+    plt.title('Photos in Multiple Albums')
+    plt.xlabel('Number of Albums the photos belong to')
+    plt.ylabel('Number of Photos')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
+    st.pyplot(plt)
 
     st.subheader("`Date_taken`")
     # Convert 'Date_taken' to datetime for time series plotting

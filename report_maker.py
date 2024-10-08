@@ -84,9 +84,7 @@ def make_report(uploaded_file):
     st.subheader("`Date_taken`")
     # Convert 'Date_taken' to datetime for time series plotting
     df['Date_taken'] = pd.to_datetime(df['Date_taken'])
-
     date_counts = df['Date_taken'].dt.to_period('M').value_counts().sort_index()
-
     plt.figure(figsize=(10, 6))
     date_counts.plot(kind='line', color='green')
     plt.title('Photos Taken Over Time')
@@ -94,16 +92,35 @@ def make_report(uploaded_file):
     plt.ylabel('Number of Photos')
     plt.show()
     st.pyplot(plt)
+    months = df['Date_taken'].apply(lambda x: x.month)
+    month_count = months.value_counts().sort_index()
+    plt.figure(figsize=(10, 6))
+    bars = month_count.plot(kind='bar', color='indigo')
+    # Add counts on top of each bar
+    for bar in bars.patches:
+        bars.annotate(f'{int(bar.get_height())}', 
+                    (bar.get_x() + bar.get_width() / 2, bar.get_height()), 
+                    ha='center', va='bottom', fontsize=10)
+    bars.set_xticklabels(['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+    plt.title('Month Distribution with counts')
+    plt.xlabel('Month')
+    plt.ylabel('Number of Photos')
+    plt.xticks(rotation=45, ha='right')
+    plt.tight_layout()
+    plt.show()
+    st.pyplot(plt)
 
+    st.subheader("`Description`")
+    st.markdown('There are ' + str(len(df.Description.unique())) + ' unique photo descriptions. The most common one is:')
+    st.markdown(df.Description.value_counts().head(1))
 
-    st.subheader("Description")
+    st.subheader("`Latitude` and `Longitude`")
 
-    st.subheader("Latitude and Longitude")
+    st.subheader("`Title`")
 
-    st.subheader("Title")
+    st.subheader("`Mission`")
 
-    st.subheader("Mission")
+    st.subheader("`Mission Description`")
 
-    st.subheader("Mission Description")
-
-    st.subheader("st_count")
+    st.subheader("`st_count`")

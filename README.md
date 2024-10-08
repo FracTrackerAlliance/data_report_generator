@@ -2,6 +2,8 @@
 
 Simply upload the csv file after running the Flickr scraping code, and hit "Create Report"
 
+(NOTE: it will take 10 - 20 seconds to load the graphs after you click the "Create Report" button.)
+
 ### How to make edits to it on your own machine
 
 1. Install the requirements

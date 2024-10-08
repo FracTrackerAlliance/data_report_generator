@@ -1,5 +1,7 @@
 # FracTracker Data Report Generator
 
+**Click here to run the app:** https://fractracker-data-report-generator.streamlit.app/
+
 Simply upload the csv file after running the Flickr scraping code, and hit "Create Report"
 
 (NOTE: it will take 10 - 20 seconds to load the graphs after you click the "Create Report" button.)

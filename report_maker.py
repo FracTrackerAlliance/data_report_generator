@@ -7,7 +7,7 @@ import datetime as dt
 def make_report(uploaded_file):
     df = pd.read_csv(uploaded_file)
 
-    st.title("Data Report " + str(dt.datetime.now.strftime("%d %B %Y")))
+    st.title("Data Report " + str(dt.datetime.now().strftime("%d %B %Y")))
 
     st.header("Attribute Overview")
     shape = df.shape

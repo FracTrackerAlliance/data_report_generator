@@ -18,7 +18,7 @@ Simply upload the csv file after running the Flickr scraping code, and hit "Crea
 
 
 
-Code for the report generator by Tess Wagner
-Scraped data can be found at https://www.flickr.com/photos/fractracker/
-Scraping and other supporting code is located in FracTrakerAlliance Github
-Contributors to FracTracker Summer Internship Project: Graham Joss, Allen Xu, Eddie Jones, Tess Wagner
+Code for the report generator by Tess Wagner.
+Scraped data can be found at https://www.flickr.com/photos/fractracker/.
+Scraping and other supporting code is located in FracTrakerAlliance Github.
+Contributors to FracTracker Summer Internship Project: Graham Joss, Allen Xu, Eddie Jones, Tess Wagner.

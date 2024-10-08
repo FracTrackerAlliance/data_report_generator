@@ -113,9 +113,29 @@ def make_report(uploaded_file):
 
     st.subheader("`Description`")
     st.markdown('There are ' + str(len(df.Description.unique())) + ' unique photo descriptions. The most common one is:')
-    st.markdown(df.Description.value_counts().head(1))
+    description = df.Description.value_counts().head(1)
+    st.markdown('*' + str(description) + '*')
 
     st.subheader("`Latitude` and `Longitude`")
+    fig = px.scatter_mapbox(df, 
+                        lat="Latitude", 
+                        lon="Longitude",
+                        color_discrete_sequence=["#901be3"],
+                        zoom=3, 
+                        height=400,
+                        width=700,
+                        opacity=0.2,
+                       )
+    fig.update_traces(
+        marker=dict(
+            size=12
+        ),
+        selector=dict(mode="markers"),
+    )
+    fig.update_layout(mapbox_style="open-street-map")
+    fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
+    fig.show()
+    st.plotly_chart(fig)
 
     st.subheader("`Title`")
 

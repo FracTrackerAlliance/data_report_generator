@@ -1,4 +1,4 @@
-# FracTracker Data Report
+# FracTracker Data Report Generator
 
 Simply upload the csv file after running the Flickr scraping code, and hit "Create Report"
 
